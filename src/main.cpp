@@ -8,7 +8,6 @@ int main(){
 	{
 		atmMachine.clearCardAndAccounts();
 		atmMachine.visualizeMainLogoOnly();
-		std::cout<<"Hello! This is JOONSEO ATM Service"<<std::endl;
 
 		try{
 			atmMachine.askCardInformation();
