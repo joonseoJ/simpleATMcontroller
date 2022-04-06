@@ -53,7 +53,7 @@ void AtmMachine::askPinNumber(){
 	int pinNumber;
 	for(int tryCount = 0; tryCount < 5; tryCount++){
 		try{
-			getValidInteger(pinNumber);
+			pinNumber = getFourDigitPinNumber();
 			if(isPinCorrect(pinNumber)){
 				return;	
 			}
@@ -75,8 +75,40 @@ void AtmMachine::askPinNumber(){
 	return;
 }
 
+int AtmMachine::getFourDigitPinNumber(){
+	std::string pins;
+	bool isDigit = true;
+	for(int i = 0; i < 4;){
+		int pin = getch();
+		if(pin == '\b'){
+			if(pins.empty()) continue;
+			pins.pop_back();
+			std::cout<<"\b \b\b \b";
+			i--;
+		}
+		else if(pin == '\n' || pin=='\r' || pin == 3){
+			throw InvalidIntegerException();
+			return 0;
+		}
+		else{
+			std::cout<<"* ";
+			pins.push_back(pin);
+			isDigit = isDigit && isdigit(pins.back());
+			i++;
+		}
+	}
+	std::cout<<std::endl;
+	if(isDigit){
+		return std::stoi(pins);
+	}
+	else{
+		throw InvalidIntegerException();
+		return 0;
+	}
+}
+
 bool AtmMachine::isPinCorrect(int pin){
-	if(isCardInserted && pin > 0 && pin < 10000){
+	if(isCardInserted && pin >= 0 && pin < 10000){
 		// TODO: implement bank api for pin correction
 		return true;
 	}

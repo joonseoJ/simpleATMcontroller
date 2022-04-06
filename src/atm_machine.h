@@ -17,6 +17,7 @@ class AtmMachine{
 		void askCardInformation();
 		void cardInsertedCallback();
 		void askPinNumber();
+		int getFourDigitPinNumber();
 		bool isPinCorrect(int pin);
 		
 		void getEveryAccounts();
