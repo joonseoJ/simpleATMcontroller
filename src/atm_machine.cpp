@@ -1,5 +1,6 @@
 #include "atm_machine.h"
 #include "atm_exception.h"
+#include "getch.h"
 #include <iostream>
 #include <limits>
 
@@ -79,7 +80,7 @@ int AtmMachine::getFourDigitPinNumber(){
 	std::string pins;
 	bool isDigit = true;
 	for(int i = 0; i < 4;){
-		int pin = getch();
+		int pin = getch(0);
 		if(pin == '\b'){
 			if(pins.empty()) continue;
 			pins.pop_back();
