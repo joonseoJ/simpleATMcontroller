@@ -63,7 +63,7 @@ void AtmMachine::askPinNumber(){
 				std::cout<<"Pin Number: ";
 			}
 		}
-		catch(std::exception& e){
+		catch(InvalidIntegerException& e){
 			visualizeMainLogoOnly();
 			std::cout<<"Insert 4 digits Pin Number Please. Pin must be 4 digits integer!"<<std::endl;
 			std::cout<<"Pin Number: ";
@@ -77,28 +77,33 @@ void AtmMachine::askPinNumber(){
 
 int AtmMachine::getFourDigitPinNumber(){
 	std::string pins;
-	bool isDigit = true;
+	unsigned char isDigit = 0b0000;
 	for(int i = 0; i < 4;){
 		int pin = getch();
-		if(pin == '\b'){
+		if(pin == 8 || pin == 127){
 			if(pins.empty()) continue;
 			pins.pop_back();
 			std::cout<<"\b \b\b \b";
+			isDigit &= ~(1<<i-1);
 			i--;
 		}
-		else if(pin == '\n' || pin=='\r' || pin == 3){
+		else if(pin == '\n' || pin=='\r'){
 			throw InvalidIntegerException();
+			return 0;
+		}
+		else if(pin == 3){
+			throw TerminalizeException();
 			return 0;
 		}
 		else{
 			std::cout<<"* ";
 			pins.push_back(pin);
-			isDigit = isDigit && isdigit(pins.back());
+			isDigit |= isdigit(pins.back()) << i;
 			i++;
 		}
 	}
 	std::cout<<std::endl;
-	if(isDigit){
+	if(isDigit == 0b1111){
 		return std::stoi(pins);
 	}
 	else{
