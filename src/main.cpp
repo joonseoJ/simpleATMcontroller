@@ -9,7 +9,6 @@ int main(){
 	{
 		atmMachine.clearCardAndAccounts();
 		atmMachine.visualizeMainLogoOnly();
-		std::cout<<"Hello! This is JOONSEO ATM Service"<<std::endl;
 
 		try{
 			atmMachine.askCardInformation();
@@ -27,6 +26,10 @@ int main(){
 		}
 		catch(InvalidPinException& e){
 			std::cerr << e.what() << std::endl;
+			break;
+		}
+		catch(TerminalizeException& e){
+			std::cout<<std::endl;
 			break;
 		}
 
