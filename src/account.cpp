@@ -2,6 +2,7 @@
 
 Account::Account(){
 	balance = 0;
+	intMaxNum = 0;
 }
 
 Account::~Account(){
@@ -39,13 +40,23 @@ int Account::getBalance(){
 	return balance;
 }
 
+int Account::getIntMaxNum(){
+	return intMaxNum;
+}
+
 std::string& Account::getAccountNumber(){
 	return accountNumber;
 }
 
 void Account::deposit(int dollar){
 	if(dollar >= 0){
-		balance += dollar;
+		if(balance + dollar >= balance ){
+			balance += dollar;
+		}
+		else{
+			intMaxNum++;
+			balance = dollar - (INT32_MAX - balance);
+		}
 	}
 	else{
 		throw NegativeDollarException();
@@ -57,6 +68,10 @@ int Account::withdraw(int dollar){
 		if(balance >= dollar){
 			balance -= dollar;
 			return dollar;
+		}
+		else if(intMaxNum > 0){
+			intMaxNum--;
+			balance = INT32_MAX - (dollar - balance);
 		}
 		else{
 			throw NegativeBalanceException();

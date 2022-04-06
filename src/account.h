@@ -15,12 +15,14 @@ class Account{
 		void clearAccountNumberAndBalance();
 
 		int getBalance();
+		int getIntMaxNum();
 		std::string& getAccountNumber();
 		void deposit(int dollar);
 		int withdraw(int dollar);
 	private:
 		std::string accountNumber;
 		int balance;
+		int intMaxNum;
 		
 };
 

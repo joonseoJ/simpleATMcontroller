@@ -188,11 +188,16 @@ void AtmMachine::askTask(){
 }
 
 void AtmMachine::viewBalanceCallback(){
-	std::cout<<"Current balance of your account is "<<getBalance()<<"$"<<std::endl;
+	std::cout<<"Current balance of your account is "<<getIntMaxNum()<<"$$, "<<getBalance()<<"$"<<std::endl;
+	std::cout<<"(1$$ = 2,147,483,647$)"<<std::endl;
 }
 
 int AtmMachine::getBalance(){
 	return accounts.at(accountIndex).getBalance();
+}
+
+int AtmMachine::getIntMaxNum(){
+	return accounts.at(accountIndex).getIntMaxNum();
 }
 
 void AtmMachine::depositCallback(){

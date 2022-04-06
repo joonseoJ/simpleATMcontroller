@@ -26,6 +26,7 @@ class AtmMachine{
 
 		void viewBalanceCallback();
 		int getBalance();
+		int getIntMaxNum();
 
 		void depositCallback();
 		void waitInsertingDollar(){}; // TODO: implement ATM hardware integration
