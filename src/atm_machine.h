@@ -5,6 +5,7 @@
 #include "Account.h"
 #include <windows.h>
 #include <conio.h>
+#include <cmath>
 
 class AtmMachine{
 	public:

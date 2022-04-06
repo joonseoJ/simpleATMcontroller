@@ -260,8 +260,7 @@ void AtmMachine::depositCallback(){
 	std::cout<<"You Insert "<<insertedDollar<<"$. Are you sure to deposit it? (Y/N) ";
 
 	std::string doDeposit;
-	std::cin>>doDeposit;
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	getline(std::cin, doDeposit);
 	if(doDeposit=="Y" || doDeposit=="y"){
 		depositDollarToAccount();
 		viewBalanceCallback();
@@ -330,14 +329,23 @@ void AtmMachine::withdrawCallback(){
 }
 
 void AtmMachine::getValidInteger(int& input){
-	std::cin>>input;
-	if(std::cin.fail()){
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		throw InvalidIntegerException();
+	std::string temp;
+	getline(std::cin, temp);
+	try{
+		size_t notIntIndex;
+		double dinput = std::stod(temp, &notIntIndex);
+		if(!temp.substr(notIntIndex).empty()||dinput - floor(dinput) != 0){
+			throw InvalidIntegerException();
+		}
+		else{
+			input = dinput;
+			return;
+		}
 	}
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	return;
+	catch(std::invalid_argument& e){
+		throw InvalidIntegerException();
+		return;
+	}
 }
 
 void AtmMachine::moveCursor(int x, int y){
