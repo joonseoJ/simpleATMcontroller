@@ -275,7 +275,7 @@ void AtmMachine::depositCallback(){
 void AtmMachine::depositDollarToAccount(){
 	try{
 		accounts.at(accountIndex).deposit(insertedDollar);
-		std::cout<<"Deposit "<<insertedDollar<<"$ to Account "<<accounts.at(accountIndex).getAccountNumber()<<" complete!"<<std::endl;
+		std::cout<<"Deposit "<<insertedDollar<<"$ to Account "<<accounts.at(accountIndex).getAccountNumber()<<" complete!\n"<<std::endl;
 	}
 	catch(AccountException& e){
 		std::cerr << e.what()<< std::endl;
@@ -363,7 +363,7 @@ void AtmMachine::visualizeMainLogoOnly(){
 	std::cout<<"|*********************|"<<std::endl;
 	std::cout<<std::endl;
 	if(isCardInserted){
-		std::cout<<"Hello "<<card.getUserName()<<"!";
+		std::cout<<"Hello \""<<card.getUserName()<<"\"!";
 		if(accountIndex >=0){
 			std::cout<<" Current account is \""<<accounts.at(accountIndex).getAccountNumber()<<"\""<<std::endl;
 		}
