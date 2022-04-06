@@ -13,9 +13,6 @@ class AtmException : public std::exception{
 class ReinitializeException : public AtmException{
 	public:
 		virtual const char* what(){}
-		const char* errorMsg(){
-			return "Reinitialize ATM Machine";
-		}
 };
 
 class TerminalizeException : public AtmException{
@@ -68,10 +65,9 @@ class NoAccountException : public TerminalizeException{
 class InvalidIntegerException : public AtmException{
 	public:
 		const char* what(){
-			return "Please enter number";
+			return "Please enter valid number";
 		}
 };
-
 
 
 #endif
