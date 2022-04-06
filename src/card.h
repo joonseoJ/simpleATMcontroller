@@ -31,4 +31,11 @@ class CardException : public std::exception{
 		virtual const char* what(){}
 };
 
+class EmptyStringException : public CardException{
+	public:
+		const char* what(){
+			return "Input string is empty";
+		}
+};
+
 #endif 

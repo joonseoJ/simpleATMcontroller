@@ -15,11 +15,25 @@ void Card::setCompanyAndUserName(std::string& _cardCompany, std::string& _userNa
 }
 
 void Card::setCardCompany(std::string& _cardCompany){
-	cardCompany = _cardCompany;
+	if(_cardCompany.empty()){
+		throw EmptyStringException();
+		return;
+	}
+	else{
+		cardCompany = _cardCompany;
+		return;
+	}
 }
 
 void Card::setUserName(std::string& _userName){
-	userName = _userName;
+	if(_userName.empty()){
+		throw EmptyStringException();
+		return;
+	}
+	else{
+		userName = _userName;
+		return;
+	}
 }
 
 std::string& Card::getCardCompany(){

@@ -42,7 +42,7 @@ void AtmMachine::askCardInformation(){
 	}
 	catch(CardException& e){
 		std::cerr<< e.what()<< std::endl;
-		throw ReinitializeException();
+		throw NoCardException();
 	}
 	return;
 }
