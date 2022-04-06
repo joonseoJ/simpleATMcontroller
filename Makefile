@@ -26,7 +26,7 @@ DEPS = $(OBJECTS:.o=.d)
 
 all: main
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cc
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
 	$(CC) $(CXXFLAGS) -c $< -o $@ -MD $(LDFLAGS)
 
 $(TARGET) : $(OBJECTS)
