@@ -31,7 +31,6 @@ void AtmMachine::clearCardAndAccounts(){
 void AtmMachine::askCardInformation(){
 	std::string cardCompany, userName;
 
-	moveCursor(0, 4);
 	std::cout<<"What's your card company and user name?"<<std::endl;
 	std::cout<<"Card Company: ";
 	getline(std::cin, cardCompany);
@@ -81,7 +80,7 @@ int AtmMachine::getFourDigitPinNumber(){
 	bool isDigit = true;
 	for(int i = 0; i < 4;){
 		int pin = getch(0);
-		if(pin == '\b'){
+		if(pin == 8 || pin == 127){
 			if(pins.empty()) continue;
 			pins.pop_back();
 			std::cout<<"\b \b\b \b";
@@ -348,17 +347,8 @@ void AtmMachine::getValidInteger(int& input){
 		return;
 	}
 }
-
-void AtmMachine::moveCursor(int x, int y){
-	COORD pos;
-	pos.X = 2*x;
-	pos.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-}
-
 void AtmMachine::visualizeMainLogoOnly(){
-	system("cls");
-	moveCursor(0,0);
+	std::cout<<"\033[2J\033[1;1H";
 	std::cout<<"|*********************|"<<std::endl;
 	std::cout<<"| JOONSEO ATM SERVICE |"<<std::endl;
 	std::cout<<"|*********************|"<<std::endl;

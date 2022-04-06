@@ -3,7 +3,7 @@
 
 #include "card.h"
 #include "account.h"
-#include <windows.h>
+//#include <windows.h>
 #include <cmath>
 
 class AtmMachine{
@@ -40,7 +40,6 @@ class AtmMachine{
 
 		void getValidInteger(int& input);
 
-		void moveCursor(int x, int y);
 		void visualizeMainLogoOnly();
 		void enterAnyKey(const char* str);
 
