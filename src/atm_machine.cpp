@@ -86,7 +86,8 @@ int AtmMachine::getFourDigitPinNumber(){
 	unsigned char isDigit = 0b0000;
 	for(int i = 0; i < 4;){
 		int pin = getch();
-		if((pin == 8 || pin == 127) && !pins.empty()){
+		if(pin == 8 || pin == 127){
+			if(pins.empty()) continue;
 			pins.pop_back();
 			std::cout<<"\b \b\b \b";
 			isDigit &= ~(1<<i-1);
