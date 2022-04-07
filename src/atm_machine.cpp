@@ -93,7 +93,7 @@ int AtmMachine::getFourDigitPinNumber(){
 		#else
 		int pin = getch(0);
 		#endif
-		if((pin == 8 || pin == 127)){
+		if(pin == 8 || pin == 127){
 			if(pins.empty()) continue;
 			pins.pop_back();
 			std::cout<<"\b \b\b \b";
