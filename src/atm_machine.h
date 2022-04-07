@@ -16,7 +16,7 @@ class AtmMachine{
 		void clearCardAndAccounts();
 
 		void askCardInformation();
-		void cardInsertedCallback();
+
 		void askPinNumber();
 		int getFourDigitPinNumber();
 		bool isPinCorrect(int pin);
@@ -32,11 +32,13 @@ class AtmMachine{
 		int getIntMaxNum();
 
 		void depositCallback();
+		void askDepositDollar();
 		void waitInsertingDollar(){}; // TODO: implement ATM hardware integration
 		void depositDollarToAccount();
 		void giveInsertedMoneyBack();
 
 		void withdrawCallback();
+		void askWithdrawDollar();
 		void isWithdrawPossible();
 		void giveMoney();
 

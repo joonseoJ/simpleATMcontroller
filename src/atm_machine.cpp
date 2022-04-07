@@ -51,24 +51,29 @@ void AtmMachine::askCardInformation(){
 }
 
 void AtmMachine::askPinNumber(){
-		visualizeMainLogoOnly();
 	int pinNumber;
-	for(int tryCount = 0; tryCount < 5; tryCount++){
+	std::string errorMsg;
+	for(int tryCount = 0; tryCount < maxTryCount_; tryCount++){
+		visualizeMainLogoOnly();
+		std::cout<<"Insert 4 digits Pin Number Please. "<<errorMsg<<std::endl;
+		std::cout<<"You have "<<maxTryCount_-tryCount<<" chance"<<std::endl;
+		std::cout<<"Pin Number: ";
+		
 		try{
 			pinNumber = getFourDigitPinNumber();
 			if(isPinCorrect(pinNumber)){
 				return;	
 			}
 			else{
-				visualizeMainLogoOnly();
-				std::cout<<"Insert 4 digits Pin Number Please. Wrong pin, you have "<<4-tryCount<<" chance"<<std::endl;
-				std::cout<<"Pin Number: ";
+				errorMsg = "Wrong pin!";
 			}
 		}
 		catch(InvalidIntegerException& e){
-			visualizeMainLogoOnly();
-			std::cout<<"Insert 4 digits Pin Number Please. Pin must be 4 digits integer!"<<std::endl;
-			std::cout<<"Pin Number: ";
+			errorMsg = "Pin must be 4 digits integer!";
+		}
+		catch(TerminalizeException& e){
+			std::cout<<std::endl;
+			throw e;
 		}
 	}
 	clearCardAndAccounts();
@@ -81,8 +86,7 @@ int AtmMachine::getFourDigitPinNumber(){
 	unsigned char isDigit = 0b0000;
 	for(int i = 0; i < 4;){
 		int pin = getch();
-		if(pin == 8 || pin == 127){
-			if(pins.empty()) continue;
+		if((pin == 8 || pin == 127) && !pins.empty()){
 			pins.pop_back();
 			std::cout<<"\b \b\b \b";
 			isDigit &= ~(1<<i-1);
@@ -154,18 +158,27 @@ void AtmMachine::askToChooseAccount(){
 		return;
 	}
 
+	std::string errorMsg;
+	for(int tryCount = 0; tryCount < maxTryCount_; tryCount++){
 		visualizeMainLogoOnly();
-	for(int tryCount = 0; tryCount < 5; tryCount++){
+		std::cout<<"Choose Account by number "<<errorMsg<<std::endl;
+		std::cout<<"You have "<<maxTryCount_-tryCount<<" chance"<<std::endl;
+		printEveryAccounts();
+		std::cout<<"Account number: ";
+		
 		try{
+			int inputIndex;
+			getValidInteger(inputIndex);
 			if(inputIndex <= 0 || inputIndex > accounts_.size()){
+				throw InvalidIntegerException();
 			}
 			else{
 				accountIndex_ = inputIndex - 1;
 				return;
 			}
-				}
-				std::cout<<"Account number: ";
-			}
+		}
+		catch(InvalidIntegerException& e){
+			errorMsg = "It's invalid number... choose between 1 to " + std::to_string(accounts_.size());
 			continue;
 		}
 	}
@@ -197,7 +210,6 @@ void AtmMachine::askTask(){
 		throw EndTaskException();
 		return;
 	}
-	visualizeMainLogoOnly();
 	switch (taskNumber){
 		case 1:
 			visualizeMainLogoOnly()
@@ -207,9 +219,11 @@ void AtmMachine::askTask(){
 		
 		case 2:
 			depositCallback();
+			enterAnyKey("Press any key to do other task");
 			break;
 		case 3:
 			withdrawCallback();
+			enterAnyKey("Press any key to do other task");
 			break;
 		
 		case 4:
@@ -237,24 +251,13 @@ int AtmMachine::getIntMaxNum(){
 }
 
 void AtmMachine::depositCallback(){
-	std::cout<<"How much do you want to deposit? Insert Money by number"<<std::endl;
-	std::cout<<"Money to deposit: ";
-	for(int i = 0; i < 5; i++){
-		try{
-			getValidInteger(insertedDollar);
-			break;
-		}
+	try{
+		askDepositDollar();
+	}
+	catch(TooManyInvalidInputException& e){
+		clearCardAndAccounts();
 		visualizeMainLogoOnly();
-				throw TooManyInvalidInputException();
-				return;
-			}
-			else{
-				visualizeMainLogoOnly();
-				std::cout<<"How much do you want to deposit? Insert Money by number"<<std::endl;
-				std::cerr << e.what() << std::endl;
-				std::cout<<"Money to deposit: ";
-			}
-		}
+		throw e;
 	}
 	
 	isDollarTaken_ = false;
@@ -265,14 +268,29 @@ void AtmMachine::depositCallback(){
 	if(doDeposit=="Y" || doDeposit=="y"){
 		depositDollarToAccount();
 		viewBalanceCallback();
-		enterAnyKey("Press any key to do other task");
 	}
 	else{
 		giveInsertedMoneyBack();
 	}
 	moneyToDeposit_ = 0;
 }
+
+void AtmMachine::askDepositDollar(){
+	std::string errorMsg;
+	for(int tryCount = 0; tryCount < maxTryCount_; tryCount++){
 		visualizeMainLogoOnly();
+		std::cout<<"How much do you want to deposit? Insert Money by number "<<errorMsg<<std::endl;
+		std::cout<<"You have "<<maxTryCount_-tryCount<<" chance"<<std::endl;
+		std::cout<<"Money to deposit: ";
+		try{
+			getValidInteger(moneyToDeposit_);
+			return;
+		}
+		catch(InvalidIntegerException& e){
+			errorMsg = e.what();
+		}
+	}
+	throw TooManyInvalidInputException();
 }
 
 void AtmMachine::depositDollarToAccount(){
@@ -292,39 +310,41 @@ void AtmMachine::giveInsertedMoneyBack(){
 }
 
 void AtmMachine::withdrawCallback(){
-	std::cout<<"How much will you withdraw? Give me the ammount by number"<<std::endl;
-	std::cout<<"Money to withdraw: ";
-	int desireDollar = 0;
-
-	for(int i = 0; i < 5; i++){
-		try{
-			getValidInteger(desireDollar);
-			break;
-		}
-		visualizeMainLogoOnly();
-				throw TooManyInvalidInputException();
-				return;
-			}
-			else{
-				visualizeMainLogoOnly();
-				std::cout<<"How much will you withdraw? Give me the ammount by number"<<std::endl;
-				std::cerr << e.what() << std::endl;
-				std::cout<<"Money to withdraw: ";
-			}
-	moneyToWithdraw_ = 0;
-
-		visualizeMainLogoOnly();
 	try{
-		std::cout<<"Take "<<accounts.at(accountIndex).withdraw(desireDollar)<<"$... enter any key to take it"<<std::endl;
-		std::string foo;
-		getline(std::cin, foo);
+		askWithdrawDollar();
+		std::string giveDollarString = "Take " + std::to_string(accounts_.at(accountIndex_).withdraw(moneyToWithdraw_)) + "$... enter any key to take it";
+		enterAnyKey(giveDollarString.c_str());
+	}
+	catch(TooManyInvalidInputException& e){
+		clearCardAndAccounts();
+		visualizeMainLogoOnly();
+		throw e;
+		return;
 	}
 	catch(AccountException& e){
 		std::cerr << e.what() <<std::endl;
 	}
+	moneyToWithdraw_ = 0;
 	viewBalanceCallback();
-	enterAnyKey("Press any key to do other task");
 	return;
+}
+
+void AtmMachine::askWithdrawDollar(){
+	std::string errorMsg;
+	for(int tryCount = 0; tryCount < maxTryCount_; tryCount++){
+		visualizeMainLogoOnly();
+		std::cout<<"How much will you withdraw? Give me the ammount by number "<<errorMsg<<std::endl;
+		std::cout<<"You have "<<maxTryCount_-tryCount<<" chance"<<std::endl;
+		std::cout<<"Money to withdraw: ";
+		try{
+			getValidInteger(moneyToWithdraw_);
+			return;
+		}
+		catch(InvalidIntegerException& e){
+			errorMsg = e.what();
+		}
+	}
+	throw TooManyInvalidInputException();
 }
 
 void AtmMachine::getValidInteger(int& input){
