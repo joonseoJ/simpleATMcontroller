@@ -15,6 +15,13 @@ Currently It supports Windows and Linux only. I'm not sure this program won't cr
 * Else if you are on Windows, choose "main" or "window"
 * Else if you are on Linux, choose "main" or "linux"
 
+## Trouble shooting
+### When "make" command returns error
+Object files created from another branch could make error. Erase everything inside 'obj' folder and try again.
+
+### I can't deposit or withdraw money
+Unit of the dollar is integer. So decimal or number bigger than 2147483647 is not valid.
+
 ## How to compile project?
 You need <b>g++</b>, <b>make</b> to compile source code.
 
