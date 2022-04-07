@@ -5,8 +5,8 @@ Card::Card(){
 }
 
 void Card::clearCompanyAndUserName(){
-	cardCompany = "";
-	userName = "";
+	cardCompany_ = "";
+	userName_ = "";
 }
 
 void Card::setCompanyAndUserName(std::string& _cardCompany, std::string& _userName){
@@ -20,7 +20,7 @@ void Card::setCardCompany(std::string& _cardCompany){
 		return;
 	}
 	else{
-		cardCompany = _cardCompany;
+		cardCompany_ = _cardCompany;
 		return;
 	}
 }
@@ -31,15 +31,15 @@ void Card::setUserName(std::string& _userName){
 		return;
 	}
 	else{
-		userName = _userName;
+		userName_ = _userName;
 		return;
 	}
 }
 
 std::string& Card::getCardCompany(){
-	return cardCompany;
+	return cardCompany_;
 } 
 
 std::string& Card::getUserName(){
-	return userName;
+	return userName_;
 }
