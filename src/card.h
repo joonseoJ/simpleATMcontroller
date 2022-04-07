@@ -23,7 +23,7 @@ class Card{
 		std::string& getCardCompany();
 		std::string& getUserName();
 	private:
-		std::string cardCompany, userName;
+		std::string cardCompany_, userName_;
 };
 
 class CardException : public std::exception{
