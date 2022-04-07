@@ -103,7 +103,7 @@ int AtmMachine::getFourDigitPinNumber(){
 		else{
 			std::cout<<"* ";
 			pins.push_back(pin);
-			isDigit |= isdigit(pins.back()) << i;
+			isDigit |= bool(isdigit(pins.back())) << i;
 			i++;
 		}
 	}
