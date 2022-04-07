@@ -9,8 +9,8 @@ class Card{
 		Card();
 
 		~Card(){
-			cardCompany.clear();
-			userName.clear();
+			cardCompany_.clear();
+			userName_.clear();
 		}
 
 		void clearCompanyAndUserName();
