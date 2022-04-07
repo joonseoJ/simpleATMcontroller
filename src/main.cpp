@@ -1,5 +1,7 @@
 #include <iostream>
+#ifdef _WIN32
 #include <conio.h>
+#endif
 #include "atm_machine.h"
 #include "atm_exception.h"
 

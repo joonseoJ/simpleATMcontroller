@@ -3,9 +3,11 @@
 
 #include "card.h"
 #include "account.h"
+#include <cmath>
+#ifdef _WIN32
 #include <windows.h>
 #include <conio.h>
-#include <cmath>
+#endif
 
 class AtmMachine{
 	public:

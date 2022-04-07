@@ -1,5 +1,6 @@
 #include "atm_machine.h"
 #include "atm_exception.h"
+#include "getch.h"
 #include <iostream>
 #include <limits>
 
@@ -85,7 +86,13 @@ int AtmMachine::getFourDigitPinNumber(){
 	std::string pins;
 	unsigned char isDigit = 0b0000;
 	for(int i = 0; i < 4;){
+		#ifdef _WIN32
 		int pin = getch();
+		#elif defined(linux)
+		int pin = getch(0);
+		#else
+		int pin = getch(0);
+		#endif
 		if((pin == 8 || pin == 127) && !pins.empty()){
 			pins.pop_back();
 			std::cout<<"\b \b\b \b";
@@ -212,7 +219,7 @@ void AtmMachine::askTask(){
 	}
 	switch (taskNumber){
 		case 1:
-			visualizeMainLogoOnly();			
+			visualizeMainLogoOnly();
 			viewBalanceCallback();
 			enterAnyKey("Press any key to do other task");
 			break;
@@ -366,17 +373,22 @@ void AtmMachine::getValidInteger(int& input){
 		return;
 	}
 }
-
+#ifdef _WIN32
 void AtmMachine::moveCursor(int x, int y){
 	COORD pos;
 	pos.X = 2*x;
 	pos.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
+#endif
 
 void AtmMachine::visualizeMainLogoOnly(){
+	#ifdef _WIN32
 	system("cls");
 	moveCursor(0,0);
+	#elif defined(linux)
+	std::cout<<"\033[2J\033[1;1H";
+	#endif
 	std::cout<<"|*********************|"<<std::endl;
 	std::cout<<"| JOONSEO ATM SERVICE |"<<std::endl;
 	std::cout<<"|*********************|"<<std::endl;
