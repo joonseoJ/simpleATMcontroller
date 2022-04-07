@@ -212,8 +212,8 @@ void AtmMachine::askTask(){
 	}
 	switch (taskNumber){
 		case 1:
-			visualizeMainLogoOnly()
-;			viewBalanceCallback();
+			visualizeMainLogoOnly();			
+			viewBalanceCallback();
 			enterAnyKey("Press any key to do other task");
 			break;
 		
