@@ -4,6 +4,7 @@
 #include "card.h"
 #include "account.h"
 #include <cmath>
+#include <stdlib.h>
 #ifdef _WIN32
 #include <windows.h>
 #include <conio.h>

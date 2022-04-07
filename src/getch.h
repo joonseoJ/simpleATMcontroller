@@ -1,4 +1,4 @@
-#ifdef linux
+#if defined(linux) || defined(__APPLE__)
 #ifndef CUSTOM_GETCH_H
 #define CUSTOM_GETCH_H
 #include <termio.h>

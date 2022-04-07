@@ -388,6 +388,8 @@ void AtmMachine::visualizeMainLogoOnly(){
 	moveCursor(0,0);
 	#elif defined(linux)
 	std::cout<<"\033[2J\033[1;1H";
+	#elif defined(__APPLE__)
+	system("CLS");
 	#endif
 	std::cout<<"|*********************|"<<std::endl;
 	std::cout<<"| JOONSEO ATM SERVICE |"<<std::endl;
