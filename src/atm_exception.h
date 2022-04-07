@@ -41,7 +41,7 @@ class TooManyInvalidInputException : public TerminalizeException{
 		}
 };
 
-class EndTaskException : public TerminalizeException{
+class EndTaskException : public ReinitializeException{
 	public:
 		const char* what(){
 			return "End Service... Thank you for using JOONSEO ATM";
