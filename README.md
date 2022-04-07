@@ -10,14 +10,14 @@ For security reason, If you enter too many invalid inputs, program will be termi
 ## How to compile project?
 You need <b>g++</b>, <b>make</b> to compile source code.
 
-    git clone $(this linux branch url)
+    git clone $(this window branch url)
     cd simpleATMcontroller
     mkdir obj
     make
-After this process, you can see <b>main</b> at the "simpleATMcontroller" folder
+After this process, you can see <b>main.exe</b> at the "simpleATMcontroller" folder
 
 ## How to run project?
-    ./main
+    .\main.exe
 
 ## Flow of the project
 ![image](https://user-images.githubusercontent.com/102952766/162131033-8c96c0ee-6930-4148-8750-dca1ddbecb42.png)
