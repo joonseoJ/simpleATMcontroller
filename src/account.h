@@ -8,9 +8,10 @@ class Account{
 		Account();
 		~Account();
 
-		void setAccountNumberAndBalance(std::string& _accountNumber, int dollar);
+		void setAccountNumberAndBalance(std::string& _accountNumber, int _balance);
 		void setAccountNumber(std::string& _accountNumber);
-		void setBalance(int dollar);
+		void setBalance(int _balance);
+		void setIntMaxNum(int _intMaxNum);
 		void clearAccountNumber();
 		void clearAccountNumberAndBalance();
 
@@ -20,9 +21,9 @@ class Account{
 		void deposit(int dollar);
 		int withdraw(int dollar);
 	private:
-		std::string accountNumber;
-		int balance;
-		int intMaxNum;
+		std::string accountNumber_;
+		int balance_;
+		int intMaxNum_;
 		
 };
 

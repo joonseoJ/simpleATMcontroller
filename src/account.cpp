@@ -1,34 +1,34 @@
 #include "account.h"
 
 Account::Account(){
-	balance = 0;
-	intMaxNum = 0;
+	balance_ = 0;
+	intMaxNum_ = 0;
 }
 
 Account::~Account(){
-	accountNumber.clear();
+	accountNumber_.clear();
 }
 
-void Account::setAccountNumberAndBalance(std::string& _accountNumber, int dollar){
+void Account::setAccountNumberAndBalance(std::string& _accountNumber, int _balance){
 	setAccountNumber(_accountNumber);
-	setBalance(dollar);
+	setBalance(_balance);
 }
 
 void Account::setAccountNumber(std::string& _accountNumber){
-	accountNumber = _accountNumber;
+	accountNumber_ = _accountNumber;
 }
 
-void Account::setBalance(int dollar){
-	if(dollar >= 0){
-		balance = dollar;
+void Account::setBalance(int _balance){
+	if(_balance >= 0){
+		balance_ = _balance;
 	}
 	else{
 		throw NegativeBalanceException();
 	}
 }
 
-void Account::clearAccountNumber(){
-	accountNumber.clear();
+void Account::setIntMaxNum(int _intMaxNum){
+	intMaxNum_ = _intMaxNum;
 }
 
 void Account::clearAccountNumberAndBalance(){
@@ -36,26 +36,30 @@ void Account::clearAccountNumberAndBalance(){
 	setBalance(0);
 }
 
+void Account::clearAccountNumber(){
+	accountNumber_.clear();
+}
+
 int Account::getBalance(){
-	return balance;
+	return balance_;
 }
 
 int Account::getIntMaxNum(){
-	return intMaxNum;
+	return intMaxNum_;
 }
 
 std::string& Account::getAccountNumber(){
-	return accountNumber;
+	return accountNumber_;
 }
 
 void Account::deposit(int dollar){
 	if(dollar >= 0){
-		if(balance + dollar >= balance ){
-			balance += dollar;
+		if(balance_ + dollar >= balance_ ){
+			balance_ += dollar;
 		}
 		else{
-			intMaxNum++;
-			balance = dollar - (INT32_MAX - balance);
+			intMaxNum_++;
+			balance_ = dollar - (INT32_MAX - balance_);
 		}
 	}
 	else{
@@ -65,13 +69,13 @@ void Account::deposit(int dollar){
 
 int Account::withdraw(int dollar){
 	if(dollar >= 0){
-		if(balance >= dollar){
-			balance -= dollar;
+		if(balance_ >= dollar){
+			balance_ -= dollar;
 			return dollar;
 		}
-		else if(intMaxNum > 0){
-			intMaxNum--;
-			balance = INT32_MAX - (dollar - balance);
+		else if(intMaxNum_ > 0){
+			intMaxNum_--;
+			balance_ = INT32_MAX - (dollar - balance_);
 		}
 		else{
 			throw NegativeBalanceException();

@@ -3,7 +3,6 @@
 
 #include "card.h"
 #include "account.h"
-//#include <windows.h>
 #include <cmath>
 
 class AtmMachine{
@@ -15,13 +14,14 @@ class AtmMachine{
 		void clearCardAndAccounts();
 
 		void askCardInformation();
-		void cardInsertedCallback();
+
 		void askPinNumber();
 		int getFourDigitPinNumber();
 		bool isPinCorrect(int pin);
 		
 		void getEveryAccounts();
 		void askToChooseAccount();
+		void printEveryAccounts();
 
 		void askTask();
 
@@ -30,11 +30,13 @@ class AtmMachine{
 		int getIntMaxNum();
 
 		void depositCallback();
+		void askDepositDollar();
 		void waitInsertingDollar(){}; // TODO: implement ATM hardware integration
 		void depositDollarToAccount();
 		void giveInsertedMoneyBack();
 
 		void withdrawCallback();
+		void askWithdrawDollar();
 		void isWithdrawPossible();
 		void giveMoney();
 
@@ -44,11 +46,13 @@ class AtmMachine{
 		void enterAnyKey(const char* str);
 
 	private:
-		bool isCardInserted, isDollarTaken;
-		int insertedDollar;
-		Card card;
-		std::vector<Account> accounts;
-		int accountIndex;
+		bool isCardInserted_, isDollarTaken_;
+		int moneyToDeposit_, moneyToWithdraw_;
+		Card card_;
+		std::vector<Account> accounts_;
+		int accountsNumber_;
+		int accountIndex_;
+		const int maxTryCount_;
 		
 };
 
