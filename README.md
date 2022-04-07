@@ -9,10 +9,11 @@ For security reason, If you enter too many invalid inputs, program will be termi
 
 ## Which branch should I choose?
 Branch is divided by operating system.
+
 Currently It supports Windows and Linux only. I'm not sure this program won't crash on other OS, like MAC.
-If you are on neither Windows nor Linux, or you don't know what your OS is, choose "main" branch.
-Else if you are on Windows, choose "main" or "window"
-Else if you are on Linux, choose "main" or "linux"
+* If you are on neither Windows nor Linux, or you don't know what your OS is, choose "main" branch.
+* Else if you are on Windows, choose "main" or "window"
+* Else if you are on Linux, choose "main" or "linux"
 
 ## How to compile project?
 You need <b>g++</b>, <b>make</b> to compile source code.
