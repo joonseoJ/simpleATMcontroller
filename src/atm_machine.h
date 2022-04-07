@@ -46,11 +46,13 @@ class AtmMachine{
 		void enterAnyKey(const char* str);
 
 	private:
-		bool isCardInserted, isDollarTaken;
-		int insertedDollar;
-		Card card;
-		std::vector<Account> accounts;
-		int accountIndex;
+		bool isCardInserted_, isDollarTaken_;
+		int moneyToDeposit_, moneyToWithdraw_;
+		Card card_;
+		std::vector<Account> accounts_;
+		int accountsNumber_;
+		int accountIndex_;
+		const int maxTryCount_;
 		
 };
 

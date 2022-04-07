@@ -4,22 +4,25 @@
 #include <limits>
 
 AtmMachine::AtmMachine():
-	isCardInserted(false),
-	isDollarTaken(true),
-	insertedDollar(0)
+	isCardInserted_(false),
+	isDollarTaken_(true),
+	moneyToDeposit_(0),
+	moneyToWithdraw_(0),
+	accountIndex_(-1),
+	maxTryCount_(5),
+	accountsNumber_(5)
 {
-	card = Card();
-	accountIndex = -1;
+	card_ = Card();
 }
 
 void AtmMachine::clearCard(){
-	card.clearCompanyAndUserName();
-	isCardInserted = false;
+	card_.clearCompanyAndUserName();
+	isCardInserted_ = false;
 }
 
 void AtmMachine::clearAccounts(){
-	accounts.clear();
-	accountIndex = -1;
+	accounts_.clear();
+	accountIndex_ = -1;
 }
 
 void AtmMachine::clearCardAndAccounts(){
@@ -37,8 +40,8 @@ void AtmMachine::askCardInformation(){
 	std::cout<<"User Name: ";
 	getline(std::cin, userName);
 	try{
-		card.setCompanyAndUserName(cardCompany, userName);
-		isCardInserted = true;
+		card_.setCompanyAndUserName(cardCompany, userName);
+		isCardInserted_ = true;
 	}
 	catch(CardException& e){
 		std::cerr<< e.what()<< std::endl;
@@ -111,7 +114,7 @@ int AtmMachine::getFourDigitPinNumber(){
 }
 
 bool AtmMachine::isPinCorrect(int pin){
-	if(isCardInserted && pin >= 0 && pin < 10000){
+	if(isCardInserted_ && pin >= 0 && pin < 10000){
 		// TODO: implement bank api for pin correction
 		return true;
 	}
@@ -122,9 +125,10 @@ bool AtmMachine::isPinCorrect(int pin){
 
 void AtmMachine::getEveryAccounts(){
 	// TODO: implement bank api for get accounts
+	accounts_.clear();
 	std::vector<int> accountDisplayCounts = {3,6,2,3};
 	Account tempAccount;
-	for(int i = 1; i < 6; i++){
+	for(int i = 1; i <= accountsNumber_; i++){
 		std::string accountCandidate;
 		for(int j : accountDisplayCounts){
 			for(int k = 0; k < j; k++){
@@ -134,7 +138,7 @@ void AtmMachine::getEveryAccounts(){
 		}
 		accountCandidate.pop_back();
 		tempAccount.setAccountNumberAndBalance(accountCandidate, 0);
-		accounts.push_back(tempAccount);
+		accounts_.push_back(tempAccount);
 	}
 }
 
@@ -153,20 +157,12 @@ void AtmMachine::askToChooseAccount(){
 		visualizeMainLogoOnly();
 	for(int tryCount = 0; tryCount < 5; tryCount++){
 		try{
-			getValidInteger(accountIndex);
-			if(accountIndex <= 0 || accountIndex > accounts.size()){
-				throw std::exception();
+			if(inputIndex <= 0 || inputIndex > accounts_.size()){
 			}
-			accountIndex--;
-			return;
-		}
-		catch(std::exception& e){
-			accountIndex = -1;
-			if(tryCount < 4){
-				visualizeMainLogoOnly();
-				std::cout<<"Choose Account by number. It's invalid number... choose between 1 to "<<accounts.size()<<std::endl;
-				for(int i = 1; i <= accounts.size(); i++){
-					std::cout<<i<<": "<<accounts[i-1].getAccountNumber()<<std::endl;
+			else{
+				accountIndex_ = inputIndex - 1;
+				return;
+			}
 				}
 				std::cout<<"Account number: ";
 			}
@@ -227,11 +223,11 @@ void AtmMachine::viewBalanceCallback(){
 }
 
 int AtmMachine::getBalance(){
-	return accounts.at(accountIndex).getBalance();
+	return accounts_.at(accountIndex_).getBalance();
 }
 
 int AtmMachine::getIntMaxNum(){
-	return accounts.at(accountIndex).getIntMaxNum();
+	return accounts_.at(accountIndex_).getIntMaxNum();
 }
 
 void AtmMachine::depositCallback(){
@@ -255,8 +251,8 @@ void AtmMachine::depositCallback(){
 		}
 	}
 	
-	isDollarTaken = false;
-	std::cout<<"You Insert "<<insertedDollar<<"$. Are you sure to deposit it? (Y/N) ";
+	isDollarTaken_ = false;
+	std::cout<<"You Insert "<<moneyToDeposit_<<"$. Are you sure to deposit it? (Y/N) ";
 
 	std::string doDeposit;
 	getline(std::cin, doDeposit);
@@ -268,13 +264,15 @@ void AtmMachine::depositCallback(){
 	else{
 		giveInsertedMoneyBack();
 	}
+	moneyToDeposit_ = 0;
+}
 		visualizeMainLogoOnly();
 }
 
 void AtmMachine::depositDollarToAccount(){
 	try{
-		accounts.at(accountIndex).deposit(insertedDollar);
-		std::cout<<"Deposit "<<insertedDollar<<"$ to Account "<<accounts.at(accountIndex).getAccountNumber()<<" complete!\n"<<std::endl;
+		accounts_.at(accountIndex_).deposit(moneyToDeposit_);
+		std::cout<<"Deposit "<<moneyToDeposit_<<"$ to Account "<<accounts_.at(accountIndex_).getAccountNumber()<<" complete!\n"<<std::endl;
 	}
 	catch(AccountException& e){
 		std::cerr << e.what()<< std::endl;
@@ -282,9 +280,9 @@ void AtmMachine::depositDollarToAccount(){
 }
 
 void AtmMachine::giveInsertedMoneyBack(){
-	std::string returnStr = std::string("Return ") + std::to_string(insertedDollar) + std::string("$... enter any key to take it");
+	std::string returnStr = std::string("Return ") + std::to_string(moneyToDeposit_) + std::string("$... enter any key to take it");
 	enterAnyKey(returnStr.c_str());
-	isDollarTaken = true;
+	isDollarTaken_ = true;
 }
 
 void AtmMachine::withdrawCallback(){
@@ -307,8 +305,7 @@ void AtmMachine::withdrawCallback(){
 				std::cerr << e.what() << std::endl;
 				std::cout<<"Money to withdraw: ";
 			}
-		}
-	}
+	moneyToWithdraw_ = 0;
 
 		visualizeMainLogoOnly();
 	try{
@@ -358,10 +355,10 @@ void AtmMachine::visualizeMainLogoOnly(){
 	std::cout<<"| JOONSEO ATM SERVICE |"<<std::endl;
 	std::cout<<"|*********************|"<<std::endl;
 	std::cout<<std::endl;
-	if(isCardInserted){
-		std::cout<<"Hello \""<<card.getUserName()<<"\"!";
-		if(accountIndex >=0){
-			std::cout<<" Current account is \""<<accounts.at(accountIndex).getAccountNumber()<<"\""<<std::endl;
+	if(isCardInserted_){
+		std::cout<<"Hello \""<<card_.getUserName()<<"\"!";
+		if(accountIndex_ >=0){
+			std::cout<<" Current account is \""<<accounts_.at(accountIndex_).getAccountNumber()<<"\""<<std::endl;
 		}
 		else{
 			std::cout<<std::endl;
