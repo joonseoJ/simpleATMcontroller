@@ -1,8 +1,8 @@
 #ifndef ATM_MACHINE_H
 #define ATM_MACHINE_H
 
-#include "Card.h"
-#include "Account.h"
+#include "card.h"
+#include "account.h"
 #include <windows.h>
 #include <conio.h>
 #include <cmath>
