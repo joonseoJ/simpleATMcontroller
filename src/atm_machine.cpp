@@ -221,16 +221,16 @@ void AtmMachine::askTask(){
 		case 1:
 			visualizeMainLogoOnly();
 			viewBalanceCallback();
-			enterAnyKey("Press any key to do other task");
+			enterAnyKey("Enter any key to do other task");
 			break;
 		
 		case 2:
 			depositCallback();
-			enterAnyKey("Press any key to do other task");
+			enterAnyKey("Enter any key to do other task");
 			break;
 		case 3:
 			withdrawCallback();
-			enterAnyKey("Press any key to do other task");
+			enterAnyKey("Enter any key to do other task");
 			break;
 		
 		case 4:
@@ -268,7 +268,7 @@ void AtmMachine::depositCallback(){
 	}
 	
 	isDollarTaken_ = false;
-	std::cout<<"You Insert "<<moneyToDeposit_<<"$. Are you sure to deposit it? (Y/N) ";
+	std::cout<<"You Insert "<<moneyToDeposit_<<"$. If you really want to deposit, enter Y";
 
 	std::string doDeposit;
 	getline(std::cin, doDeposit);
