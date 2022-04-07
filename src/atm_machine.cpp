@@ -197,7 +197,7 @@ void AtmMachine::askTask(){
 	std::cout<<"     1: See Balance"<<std::endl;
 	std::cout<<"     2: Deposit"<<std::endl;
 	std::cout<<"     3: Withdraw"<<std::endl;
-	std::cout<<"     4: Choose Other Account"<<std::endl;
+	std::cout<<"     4: Choose Another Account"<<std::endl;
 	std::cout<<"others: End service"<<std::endl;
 	std::cout<<"Task number: ";
 	int taskNumber = 0;
