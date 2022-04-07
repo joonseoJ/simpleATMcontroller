@@ -8,7 +8,6 @@ int main(){
 	while (true)
 	{
 		atmMachine.clearCardAndAccounts();
-		atmMachine.visualizeMainLogoOnly();
 
 		try{
 			atmMachine.askCardInformation();
@@ -19,8 +18,6 @@ int main(){
 			continue;
 		}
 
-		atmMachine.visualizeMainLogoOnly();
-
 		try{
 			atmMachine.askPinNumber();
 		}
@@ -29,12 +26,11 @@ int main(){
 			break;
 		}
 		catch(TerminalizeException& e){
-			std::cout<<std::endl;
 			break;
 		}
 
 		atmMachine.getEveryAccounts();
-		atmMachine.visualizeMainLogoOnly();
+
 		try{
 			atmMachine.askToChooseAccount();
 		}
@@ -66,6 +62,7 @@ int main(){
 		}
 		if(isEnd) break;
 	}
+	
 	std::cout<<"Enter 'exit' to exit program"<<std::endl;
 	std::string exit;
 	do{
