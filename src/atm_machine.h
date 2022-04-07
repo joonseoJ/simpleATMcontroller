@@ -23,6 +23,7 @@ class AtmMachine{
 		
 		void getEveryAccounts();
 		void askToChooseAccount();
+		void printEveryAccounts();
 
 		void askTask();
 

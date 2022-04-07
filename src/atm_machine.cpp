@@ -172,6 +172,12 @@ void AtmMachine::askToChooseAccount(){
 	throw InvalidAccountException();
 }
 
+void AtmMachine::printEveryAccounts(){
+	for(int i = 1; i <= accounts_.size(); i++){
+		std::cout<<i<<": "<<accounts_[i-1].getAccountNumber()<<std::endl;
+	}
+}
+
 void AtmMachine::askTask(){
 	visualizeMainLogoOnly();
 	std::cout<<"Choose the task by number"<<std::endl;
