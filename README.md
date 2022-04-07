@@ -8,7 +8,7 @@ Currently, it's not integrated with bank api, pin number will be always correct 
 For security reason, If you enter too many invalid inputs, program will be terminated.
 
 ## How to compile project?
-You need <b>MinGW</b>, <b>make</b> to compile source code.
+You need <b>g++</b>, <b>make</b> to compile source code.
 
     git clone $(this window branch url)
     cd simpleATMcontroller
