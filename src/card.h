@@ -9,8 +9,8 @@ class Card{
 		Card();
 
 		~Card(){
-			cardCompany.clear();
-			userName.clear();
+			cardCompany_.clear();
+			userName_.clear();
 		}
 
 		void clearCompanyAndUserName();
@@ -23,7 +23,7 @@ class Card{
 		std::string& getCardCompany();
 		std::string& getUserName();
 	private:
-		std::string cardCompany, userName;
+		std::string cardCompany_, userName_;
 };
 
 class CardException : public std::exception{
