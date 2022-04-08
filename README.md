@@ -35,4 +35,5 @@ After this process, you can see <b>main</b> at the "simpleATMcontroller" folder
     ./main
 
 ## Flow of the project
-![image](https://user-images.githubusercontent.com/102952766/162131033-8c96c0ee-6930-4148-8750-dca1ddbecb42.png)
+![image](https://user-images.githubusercontent.com/102952766/162347759-e4ad6792-4c2a-4c9f-bcfd-61d500ceff3b.png)
+
