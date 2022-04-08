@@ -35,4 +35,5 @@ After this process, you can see <b>main.exe</b> at the "simpleATMcontroller" fol
     .\main.exe
 
 ## Flow of the project
-![image](https://user-images.githubusercontent.com/102952766/162131033-8c96c0ee-6930-4148-8750-dca1ddbecb42.png)
+![image](https://user-images.githubusercontent.com/102952766/162347801-b3d64e51-38c1-448f-b7dd-c001ba6b92b9.png)
+
