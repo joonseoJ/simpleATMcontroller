@@ -38,4 +38,5 @@ After this process, you can see <b>main.exe</b> or <b>main</b> at the "simpleATM
     .\main.exe or ./main
 
 ## Flow of the project
-![image](https://user-images.githubusercontent.com/102952766/162131033-8c96c0ee-6930-4148-8750-dca1ddbecb42.png)
+![image](https://user-images.githubusercontent.com/102952766/162347699-0276bb53-813a-4928-bb22-f1f71be2bdef.png)
+
