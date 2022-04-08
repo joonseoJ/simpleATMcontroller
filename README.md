@@ -22,6 +22,9 @@ Object files created from another branch could make error. Erase everything insi
 ### I can't deposit or withdraw money
 Unit of the dollar is integer. So decimal or number bigger than 2147483647 is not valid.
 
+### Every trouble shooting failed... how can I run this project?
+If you are not possible to build this project, just run executable file at "exe" folder of "main" branch.
+
 ## How to compile project?
 You need <b>g++</b>, <b>make</b> to compile source code.
 
